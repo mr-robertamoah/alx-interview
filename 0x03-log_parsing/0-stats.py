@@ -68,6 +68,5 @@ try:
             except ValueError:
                 continue
 
-finally:
-    if number_of_lines % 10 != 0:
-        print_output()
+except KeyboardInterrupt:
+    print_output()
