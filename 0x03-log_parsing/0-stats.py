@@ -4,12 +4,10 @@ contains a script that reads stdin for a formatted string
 and print in aspects prescribed format
 """
 
-
 import sys
-import signal
 
 
-def printOutput() -> None:
+def printOutput():
     """
     print the total file size and the status codes in ascending order
     """
@@ -26,7 +24,7 @@ def printOutput() -> None:
     initCodesDict()
 
 
-def initCodesDict() -> None:
+def initCodesDict():
     """
     set the status code counts to 0 in codes_dict
     """
@@ -47,7 +45,9 @@ number_of_lines = 0
 status_codes = []
 total_file_size = 0
 
+
 initCodesDict()
+
 
 try:
     for line in sys.stdin:
@@ -74,4 +74,3 @@ try:
 
 finally:
     printOutput()
-
