@@ -60,8 +60,10 @@ try:
             if number_of_lines <= 10:
                 file_size = match.group(4)
                 status_code = match.group(3)
-                codes_dict[status_code] += 1
                 total_file_size += int(file_size)
+                
+                if status_code in codes_dict.keys():
+                    codes_dict[status_code] += 1
 
             if number_of_lines == 10:
                 print_output()
