@@ -10,27 +10,24 @@ import sys
 
 def print_output():
     """
-    print the total file size and the status codes in ascending order
+    Print the total file size and the status codes in ascending order.
     """
 
     if total_file_size < 1:
         return
 
-    print("File size: ", total_file_size)
+    print(f"File size: {total_file_size}")
 
     for key, value in codes_dict.items():
         if value != 0:
             print(f"{key}: {str(value)}")
 
-    int_codes_dict()
 
-
-def int_codes_dict():
+def init_codes_dict():
     """
-    set the status code counts to 0 in codes_dict
+    Set the status code counts to 0 in codes_dict.
     """
-    global codes_dict
-codes_dict = {
+    return {
 	"200": 0,
         "301": 0,
         "400": 0,
@@ -39,18 +36,14 @@ codes_dict = {
         "404": 0,
         "405": 0,
         "500": 0
-}
+    }
 
 
-codes_dict = None
+codes_dict = init_codes_dict()
 trimmed_line = None
 number_of_lines = 0
 status_codes = []
 total_file_size = 0
-
-
-int_codes_dict()
-
 
 try:
     for line in sys.stdin:
@@ -65,7 +58,6 @@ try:
             if number_of_lines <= 10:
                 file_size = trimmed_list[-1]
                 status_code = trimmed_list[-2]
-
                 codes_dict[status_code] += 1
                 total_file_size += int(file_size)
 
@@ -74,6 +66,7 @@ try:
                 total_file_size = 0
                 status_codes = []
                 number_of_lines = 0
+                codes_dict = init_codes_dict()
 
 finally:
     print_output()
