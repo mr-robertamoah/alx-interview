@@ -65,10 +65,9 @@ try:
 
                 if number_of_lines % 10 == 0:
                     print_output()
-                    total_file_size = 0
-                    status_codes = []
             except ValueError:
                 continue
 
 finally:
-    print_output()
+    if number_of_lines % 10 != 0:
+        print_output()
