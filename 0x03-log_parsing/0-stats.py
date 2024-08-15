@@ -71,5 +71,5 @@ try:
             except ValueError:
                 continue
 
-except KeyboardInterrupt:
+finally:
     print_output()
