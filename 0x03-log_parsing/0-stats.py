@@ -67,7 +67,6 @@ try:
                     print_output()
                     total_file_size = 0
                     status_codes = []
-                    codes_dict = init_codes_dict()
             except ValueError:
                 continue
 
