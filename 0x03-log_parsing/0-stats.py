@@ -28,7 +28,7 @@ def init_codes_dict():
     Set the status code counts to 0 in codes_dict.
     """
     return {
-	"200": 0,
+        "200": 0,
         "301": 0,
         "400": 0,
         "401": 0,
@@ -42,7 +42,6 @@ def init_codes_dict():
 codes_dict = init_codes_dict()
 trimmed_line = None
 number_of_lines = 0
-status_codes = []
 total_file_size = 0
 
 try:
