@@ -19,9 +19,10 @@ def print_output():
 
     print(f"File size: {total_file_size}")
 
-    for key, value in codes_dict.items():
+    for key in sorted(codes_dict.keys()):
+        value = codes_dict[key]
         if value != 0:
-            print(f"{key}: {str(value)}")
+            print(f"{key}: {value}")
 
 
 def init_codes_dict():
@@ -53,12 +54,11 @@ try:
         match = re.match(pattern, line.strip())
 
         if match:
-
             try:
                 file_size = int(match.group(4))
                 status_code = match.group(3)
                 total_file_size += file_size
-                
+
                 if status_code in codes_dict.keys():
                     codes_dict[status_code] += 1
                 number_of_lines += 1
