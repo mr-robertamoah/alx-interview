@@ -1,13 +1,14 @@
 #!/usr/bin/python3
+
 """
-contains a script that reads stdin for a formatted string
-and print in aspects prescribed format
+Contains a script that reads stdin for a formatted string
+and print in aspects prescribed format.
 """
 
 import sys
 
 
-def printOutput():
+def print_output():
     """
     print the total file size and the status codes in ascending order
     """
@@ -21,22 +22,24 @@ def printOutput():
         if value != 0:
             print(f"{key}: {str(value)}")
 
-    initCodesDict()
+    int_codes_dict()
 
 
-def initCodesDict():
+def int_codes_dict():
     """
     set the status code counts to 0 in codes_dict
     """
     global codes_dict
-    codes_dict = {"200": 0,
+codes_dict = {
+	"200": 0,
         "301": 0,
         "400": 0,
         "401": 0,
         "403": 0,
         "404": 0,
         "405": 0,
-        "500": 0}
+        "500": 0
+}
 
 
 codes_dict = None
@@ -46,7 +49,7 @@ status_codes = []
 total_file_size = 0
 
 
-initCodesDict()
+int_codes_dict()
 
 
 try:
@@ -67,10 +70,10 @@ try:
                 total_file_size += int(file_size)
 
             if number_of_lines == 10:
-                printOutput()
+                print_output()
                 total_file_size = 0
                 status_codes = []
                 number_of_lines = 0
 
 finally:
-    printOutput()
+    print_output()
