@@ -6,6 +6,7 @@ and print in aspects prescribed format.
 """
 
 import sys
+import re
 
 
 def print_output():
@@ -43,20 +44,22 @@ codes_dict = init_codes_dict()
 trimmed_line = None
 number_of_lines = 0
 total_file_size = 0
+pattern = (
+    r'(\d{1,3}(?:\.\d{1,3}){3}) - \[(.*?)\] '
+    r'"GET /projects/260 HTTP/1.1" (\d{3}) (\d+)'
+)
 
 try:
     for line in sys.stdin:
         trimmed_line = line.strip()
-        trimmed_list = trimmed_line.split(" ")
+        match = re.match(pattern, trimmed_line)
 
-        list_len = len(trimmed_list)
-
-        if list_len > 2:
+        if match:
             number_of_lines += 1
 
             if number_of_lines <= 10:
-                file_size = trimmed_list[-1]
-                status_code = trimmed_list[-2]
+                file_size = match.group(4)
+                status_code = match.group(3)
                 codes_dict[status_code] += 1
                 total_file_size += int(file_size)
 
