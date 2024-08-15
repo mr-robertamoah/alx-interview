@@ -41,7 +41,6 @@ def init_codes_dict():
 
 
 codes_dict = init_codes_dict()
-trimmed_line = None
 number_of_lines = 0
 total_file_size = 0
 pattern = (
@@ -51,26 +50,26 @@ pattern = (
 
 try:
     for line in sys.stdin:
-        trimmed_line = line.strip()
-        match = re.match(pattern, trimmed_line)
+        match = re.match(pattern, line.strip())
 
         if match:
-            number_of_lines += 1
 
-            if number_of_lines <= 10:
-                file_size = match.group(4)
+            try:
+                file_size = int(match.group(4))
                 status_code = match.group(3)
-                total_file_size += int(file_size)
+                total_file_size += file_size
                 
                 if status_code in codes_dict.keys():
                     codes_dict[status_code] += 1
+                number_of_lines += 1
 
-            if number_of_lines == 10:
-                print_output()
-                total_file_size = 0
-                status_codes = []
-                number_of_lines = 0
-                codes_dict = init_codes_dict()
+                if number_of_lines % 10 == 0:
+                    print_output()
+                    total_file_size = 0
+                    status_codes = []
+                    codes_dict = init_codes_dict()
+            except ValueError:
+                continue
 
-finally:
+except KeyboardInterrupt:
     print_output()
