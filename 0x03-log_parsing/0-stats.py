@@ -44,6 +44,7 @@ def init_codes_dict():
 codes_dict = init_codes_dict()
 number_of_lines = 0
 total_file_size = 0
+line_process_ends = False
 pattern = (
     r'(\d{1,3}(?:\.\d{1,3}){3}) - \[(.*?)\] '
     r'"GET /projects/260 HTTP/1.1" (\d{3}) (\d+)'
@@ -51,6 +52,7 @@ pattern = (
 
 try:
     for line in sys.stdin:
+        line_process_ends = False
         match = re.match(pattern, line.strip())
 
         if match:
@@ -63,11 +65,14 @@ try:
                     codes_dict[status_code] += 1
                 number_of_lines += 1
 
-                if number_of_lines % 10 == 0:
+                if number_of_lines == 10:
                     print_output()
+                    number_of_lines = 0
             except ValueError:
                 continue
+        line_process_ends = True
 
 finally:
-    if number_of_lines % 10 != 0:
+    print(line_process_ends, number_of_lines)
+    if not line_process_ends and number_of_lines != 10:
         print_output()
