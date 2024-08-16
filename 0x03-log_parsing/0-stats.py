@@ -14,7 +14,7 @@ def print_output():
     Print the total file size and the status codes in ascending order.
     """
 
-    if total_file_size < 1:
+    if number_of_lines < 1:
         return
 
     print(f"File size: {total_file_size}")
@@ -44,7 +44,6 @@ def init_codes_dict():
 codes_dict = init_codes_dict()
 number_of_lines = 0
 total_file_size = 0
-line_process_ends = False
 pattern = (
     r'(\d{1,3}(?:\.\d{1,3}){3}) - \[(.*?)\] '
     r'"GET /projects/260 HTTP/1.1" (\d{3}) (\d+)'
@@ -52,7 +51,6 @@ pattern = (
 
 try:
     for line in sys.stdin:
-        line_process_ends = False
         match = re.match(pattern, line.strip())
 
         if match:
@@ -70,8 +68,9 @@ try:
                     number_of_lines = 0
             except ValueError:
                 continue
-        line_process_ends = True
+
+except Exception:
+    pass
 
 finally:
-    if not line_process_ends and number_of_lines != 10:
-        print_output()
+    print_output()
