@@ -73,6 +73,5 @@ try:
         line_process_ends = True
 
 finally:
-    print(line_process_ends, number_of_lines)
     if not line_process_ends and number_of_lines != 10:
         print_output()
